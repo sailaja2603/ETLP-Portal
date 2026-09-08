@@ -21,10 +21,12 @@ const poolConfig = {
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  connectTimeout: 60000
+  connectTimeout: 60000,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 10000
 };
 
-if (process.env.DB_SSL === "true" || DB_HOST.includes("aiven")) {
+if (process.env.DB_SSL === "true" || process.env.DB_SSL === "1" || DB_HOST.includes("aiven")) {
   poolConfig.ssl = { rejectUnauthorized: false };
 }
 
