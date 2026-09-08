@@ -24,7 +24,7 @@ const poolConfig = {
   connectTimeout: 60000
 };
 
-if (process.env.DB_SSL === "true" || DB_HOST.includes("aiven") || DB_HOST.includes("rlwy")) {
+if (process.env.DB_SSL === "true" || DB_HOST.includes("aiven")) {
   poolConfig.ssl = { rejectUnauthorized: false };
 }
 
