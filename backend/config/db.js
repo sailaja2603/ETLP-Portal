@@ -12,7 +12,7 @@ console.log(
   `Connecting to MySQL -> Host: ${DB_HOST}, Port: ${DB_PORT}, Database: ${DB_NAME}`
 );
 
-const pool = mysql.createPool({
+const poolConfig = {
   host: DB_HOST,
   port: Number(DB_PORT),
   user: DB_USER,
@@ -22,6 +22,12 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
   connectTimeout: 60000
-});
+};
+
+if (process.env.DB_SSL === "true" || DB_HOST.includes("aiven") || DB_HOST.includes("rlwy")) {
+  poolConfig.ssl = { rejectUnauthorized: false };
+}
+
+const pool = mysql.createPool(poolConfig);
 
 module.exports = pool.promise();
